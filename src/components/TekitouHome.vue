@@ -27,6 +27,12 @@ export default {
   methods: {
       
   },
+  activated() {
+    console.log("activated");
+  },
+  deactivated() {
+    console.log("deactivated");
+  },
 };
 </script>
 

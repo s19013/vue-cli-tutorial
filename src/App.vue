@@ -1,18 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="./assets/logo.png"/>
+    <p>親に渡されたlikeCount({{counterName}})</p>
+    <LikeCounter
+      propsLikeCount=5
+      propsName="likeCounterA"
+      @my-click="changeCounterName"
+    >
+    </LikeCounter>
+    <LikeCounter
+      propsLikeCount=0
+      propsName="likeCounterB"
+      @my-click="changeCounterName"
+    ></LikeCounter>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import LikeCounter from './components/LikeCounter.vue';
 export default {
   name: 'App',
+  data(){
+    return{
+      counterName:""
+    }
+  },
   components: {
-    HelloWorld
-  }
+    LikeCounter
+  },
+  methods:{
+    changeCounterName(arg){
+      console.log(arg);
+      this.counterName = arg;
+    }
+  },
 }
 </script>
 
@@ -25,4 +46,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>

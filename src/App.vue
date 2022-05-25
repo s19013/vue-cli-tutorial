@@ -1,42 +1,81 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png"/>
-    <button @click="currentComponent = 'TekitouHome'">home</button>
-    <button @click="currentComponent = 'TekitouAbout'">about</button>
-    <keep-alive>
-      <component :is="currentComponent"></component>
-    </keep-alive>
 
-    <!-- <tekitou-home  v-if="currentComponent === 'home'"></tekitou-home>
-    <tekitou-about v-if="currentComponent === 'about'"></tekitou-about> -->
+    <event-title v-model.trim="eventData.title"></event-title>
+
+    <!--
+      modelの本来の形
+      valueはprops vueが勝手にpropsを作っている
+      propsが複数とか､だったら本来の書き方をしないと行けないはず
+      でも部品なので複数にするような形にしなければokだと思う
+    <event-title
+      :value="eventData.title"
+      @input="eventData.title = $event"
+    ></event-title>
+    -->
+
+    <event-participant v-model.number="eventData.number"></event-participant>
+
+    <event-host v-model.trim="eventData.host"></event-host>
+
+    <event-detail v-model.trim="eventData.detail"></event-detail>
+
+    <event-is-private v-model="eventData.isPrivate"></event-is-private>
+
+    <event-age v-model="eventData.targets"></event-age>
+    <p>pairent:{{eventData.targets}}</p>
+
+    <event-price v-model="eventData.price"></event-price>
+
+    <event-location
+    :locations="locations"
+    @input="eventData.location = $event"
+    ></event-location>
+    <p>{{eventData.location}}</p>
   </div>
 </template>
 
 <script>
-import TekitouAbout from './components/TekitouAbout.vue';
-import TekitouHome  from './components/TekitouHome.vue';
-// import LikeCounter from './components/LikeCounter.vue';
-// import LikeHeader from './components/likeHeader.vue';
+import EventTitle from "./components/EventTitle.vue";
+import EventParticipant from './components/EventParticipant.vue';
+import EventHost from './components/EventHost.vue';
+import EventDetail from './components/EventDetail.vue';
+import EventIsPrivate from './components/EventIsPrivate.vue';
+import EventAge from './components/EventAge.vue';
+import EventPrice from './components/EventPrice.vue';
+import EventLocation from './components/EventLocation.vue';
+
+
 export default {
   name: 'App',
   data(){
     return{
-      counterName:"",
-      currentComponent:"TekitouHome"
+      locations:["tokyo","oosaka","nagoya"],
+      eventData:{
+        title:"文字を変えるとここも変わるよ",
+        number:0,
+        host:"",
+        detail:"",
+        isPrivate:false,
+        targets:[],
+        price:"free",
+        location:"tokyo"
+      }
     }
   },
   components: {
-    TekitouHome,
-    TekitouAbout
-    // LikeCounter,
-    // LikeHeader,
-    
+    EventTitle,
+    EventParticipant,
+    EventHost,
+    EventDetail,
+    EventIsPrivate,
+    EventAge,
+    EventPrice,
+    EventLocation
 },
   methods:{
-    changeCounterName(arg){
-      console.log(arg);
-      this.counterName = arg;
-    }
+    
   },
 }
 </script>

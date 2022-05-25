@@ -1,49 +1,37 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png"/>
-    <like-header propsName="tekitou">
-      <p>デフォルトスロット用</p>
-      <h4>デフォルトスロット用</h4>
-      <template v-slot:title>
-        <h2>hello</h2>
-      </template>
-      <template v-slot:tekitou>
-        <h1>親に渡されたlikeCount({{counterName}})</h1>
-      </template>
-      <template v-slot:user="slotProps">
-        <h2>{{slotProps}}</h2>
-        <h2>{{slotProps.user.firstname}} {{slotProps.user.middlename}} {{slotProps.user.lastname}}</h2>
-      </template>
+    <button @click="currentComponent = 'TekitouHome'">home</button>
+    <button @click="currentComponent = 'TekitouAbout'">about</button>
+    <keep-alive>
+      <component :is="currentComponent"></component>
+    </keep-alive>
 
-    </like-header>
-    <like-counter
-      :propsLikeCount=5
-      propsName="likeCounterA"
-      @my-click="changeCounterName"
-    >
-    </like-counter>
-    <like-counter
-      :propsLikeCount=0
-      propsName="likeCounterB"
-      @my-click="changeCounterName"
-    ></like-counter>
+    <!-- <tekitou-home  v-if="currentComponent === 'home'"></tekitou-home>
+    <tekitou-about v-if="currentComponent === 'about'"></tekitou-about> -->
   </div>
 </template>
 
 <script>
-import LikeCounter from './components/LikeCounter.vue';
-import LikeHeader from './components/likeHeader.vue';
+import TekitouAbout from './components/TekitouAbout.vue';
+import TekitouHome  from './components/TekitouHome.vue';
+// import LikeCounter from './components/LikeCounter.vue';
+// import LikeHeader from './components/likeHeader.vue';
 export default {
   name: 'App',
   data(){
     return{
-      counterName:""
+      counterName:"",
+      currentComponent:"TekitouHome"
     }
   },
   components: {
-    LikeCounter,
-    LikeHeader
-  },
+    TekitouHome,
+    TekitouAbout
+    // LikeCounter,
+    // LikeHeader,
+    
+},
   methods:{
     changeCounterName(arg){
       console.log(arg);

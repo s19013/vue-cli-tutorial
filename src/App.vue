@@ -2,7 +2,11 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png"/>
 
-    <event-title v-model.trim="eventData.title"></event-title>
+    <button @click="currentComponent = 'TekitouHome'">home</button>
+    <button @click="currentComponent = 'TekitouAbout'">about</button>
+    <keep-alive>
+      <component :is="currentComponent"></component>
+    </keep-alive>
 
     <!--
       modelの本来の形
@@ -14,6 +18,8 @@
       @input="eventData.title = $event"
     ></event-title>
     -->
+
+    <event-title v-model.trim="eventData.title"></event-title>
 
     <event-participant v-model.number="eventData.number"></event-participant>
 
@@ -45,6 +51,9 @@ import EventIsPrivate from './components/EventIsPrivate.vue';
 import EventAge from './components/EventAge.vue';
 import EventPrice from './components/EventPrice.vue';
 import EventLocation from './components/EventLocation.vue';
+import TekitouHome from './components/TekitouHome.vue';
+import TekitouAbout from './components/TekitouAbout.vue';
+
 
 
 export default {
@@ -52,6 +61,7 @@ export default {
   data(){
     return{
       locations:["tokyo","oosaka","nagoya"],
+      currentComponent:"TekitouHome",
       eventData:{
         title:"文字を変えるとここも変わるよ",
         number:0,
@@ -72,7 +82,9 @@ export default {
     EventIsPrivate,
     EventAge,
     EventPrice,
-    EventLocation
+    EventLocation,
+    TekitouHome,
+    TekitouAbout
 },
   methods:{
     
